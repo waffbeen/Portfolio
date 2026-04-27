@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Prathvi Singh Rajput — Software Developer building production-grade ERP systems, backend services, and cloud-deployed tools." />
+<meta name="description" content="Prathvi Singh Rajput — Software Developer building production-grade ERP systems, backend services, and cloud-deployed tools. ~2 years shipping at Indus Analytics." />
 <meta name="author" content="Prathvi Singh Rajput" />
 <meta name="theme-color" content="#0a0a0a" />
+<meta name="keywords" content="Prathvi Singh Rajput, Software Developer, ERP, VB.NET, SQL Server, Backend Developer, Indore, Indus Analytics, Thomson ERP" />
 
 <meta property="og:title" content="Prathvi Singh Rajput — Software Developer" />
 <meta property="og:description" content="Engineer building production-grade ERP systems, backend services, and cloud-deployed tools." />
 <meta property="og:type" content="website" />
+<meta property="og:locale" content="en_IN" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Prathvi Singh Rajput — Software Developer" />
+<meta name="twitter:description" content="Engineer building production-grade ERP systems and backend services." />
 
 <title>Prathvi Singh Rajput — Software Developer</title>
 
@@ -23,13 +29,47 @@
 </head>
 <body>
 
-<div class="cursor"></div>
-
-<nav>
-  <div class="nav-logo">
-    <span class="dot"></span>
-    PRATHVI.SYS / v2.6
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-mark">P</div>
+    <div class="loader-text">PRATHVI.SYS</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-status" id="loaderStatus">Initializing systems</div>
   </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- CUSTOM CURSOR (dual layer) -->
+<div class="cursor cursor-blur" id="cursorBlur"></div>
+<div class="cursor cursor-dot" id="cursorDot"></div>
+
+<!-- AMBIENT BACKGROUND ORBS -->
+<div class="bg-ambient" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- SIDE SECTION INDICATOR -->
+<aside class="side-nav" id="sideNav" aria-label="Section navigation">
+  <a href="#hero" class="side-dot active" data-label="Intro"></a>
+  <a href="#about" class="side-dot" data-label="About"></a>
+  <a href="#skills" class="side-dot" data-label="Stack"></a>
+  <a href="#work" class="side-dot" data-label="Work"></a>
+  <a href="#experience" class="side-dot" data-label="Path"></a>
+  <a href="#education" class="side-dot" data-label="Edu"></a>
+  <a href="#contact" class="side-dot" data-label="Contact"></a>
+</aside>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <span class="dot"></span>
+    PRATHVI.SYS / v3.0
+  </a>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#skills">Stack</a>
@@ -37,18 +77,33 @@
     <a href="#experience">Path</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="nav-time" id="liveTime">— : —</div>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <a href="/resume.pdf" download="Prathvi_Singh_Rajput_Resume.pdf" class="resume-btn magnetic">
+      <span>Resume</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+    </a>
+    <div class="nav-time" id="liveTime">— : —</div>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section id="hero" class="hero">
+  <div class="hero-parallax" id="heroParallax">
+    <div class="parallax-orb p-orb-1"></div>
+    <div class="parallax-orb p-orb-2"></div>
+  </div>
+
   <div class="container">
     <div class="hero-meta">
       <div class="hero-tag">PORTFOLIO / 2026 EDITION</div>
       <div class="hero-location">
         <strong>INDORE → ANYWHERE</strong><br>
         22.7196° N, 75.8577° E<br>
-        Available for full-time roles
+        <span class="status-pill"><span class="status-dot"></span> Available for full-time</span>
       </div>
     </div>
 
@@ -59,16 +114,27 @@
     </h1>
 
     <div class="hero-bottom">
-      <p class="hero-intro">
-        Software developer building <em>production-grade ERP systems</em>, backend services, and cloud-deployed tools that quietly run businesses behind the scenes.
-      </p>
+      <div>
+        <p class="hero-intro">
+          Software developer building <em>production-grade ERP systems</em>, backend services, and cloud-deployed tools that quietly run businesses behind the scenes.
+        </p>
+        <div class="hero-cta">
+          <a href="#work" class="btn btn-primary magnetic">
+            <span>See the work</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-ghost magnetic">
+            <span>Get in touch</span>
+          </a>
+        </div>
+      </div>
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-num">2<sup>+</sup></div>
+          <div class="stat-num" data-count="2" data-suffix="+">0<sup>+</sup></div>
           <div class="stat-label">Years building</div>
         </div>
         <div class="stat">
-          <div class="stat-num">10<sup>+</sup></div>
+          <div class="stat-num" data-count="10" data-suffix="+">0<sup>+</sup></div>
           <div class="stat-label">ERP modules shipped</div>
         </div>
         <div class="stat">
@@ -76,6 +142,11 @@
           <div class="stat-label">SQL queries optimized</div>
         </div>
       </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
     </div>
   </div>
 </section>
@@ -87,6 +158,7 @@
     <span>SQL Server</span>
     <span>Python</span>
     <span>Java</span>
+    <span>Thomson ERP</span>
     <span>API Architecture</span>
     <span>Cloud Deployment</span>
     <span>Workflow Automation</span>
@@ -95,6 +167,7 @@
     <span>SQL Server</span>
     <span>Python</span>
     <span>Java</span>
+    <span>Thomson ERP</span>
     <span>API Architecture</span>
     <span>Cloud Deployment</span>
     <span>Workflow Automation</span>
@@ -124,9 +197,16 @@
         <p>
           Currently expanding into <strong>cloud platforms and AI-augmented development.</strong>
         </p>
+
+        <div class="about-quickfacts">
+          <div class="qf-item"><span class="qf-key">Based</span><span class="qf-val">Indore, MP</span></div>
+          <div class="qf-item"><span class="qf-key">Currently</span><span class="qf-val">Indus Analytics</span></div>
+          <div class="qf-item"><span class="qf-key">Education</span><span class="qf-val">MCA + B.Sc. CS</span></div>
+          <div class="qf-item"><span class="qf-key">Open to</span><span class="qf-val">Relocation</span></div>
+        </div>
       </div>
 
-      <div class="about-card reveal">
+      <div class="about-card glass reveal">
         <div class="card-title">// Operating Principles</div>
         <div class="philosophy-item">
           <div class="philosophy-num">01</div>
@@ -168,8 +248,9 @@
         </div>
         <div class="skill-name">ERP <em>/ Enterprise Systems</em></div>
         <div class="skill-tags">
-          <span>Thomson ERP</span><span>Procurement</span><span>Inventory</span><span>CAPEX</span><span>AMC Tracking</span><span>Workflow Engines</span>
+          <span>Thomson ERP</span><span>Procurement</span><span>Inventory</span><span>CAPEX</span><span>AMC Tracking</span><span>Maintenance</span><span>Workflow Engines</span>
         </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
       </div>
 
       <div class="skill-block">
@@ -179,8 +260,9 @@
         </div>
         <div class="skill-name">Backend <em>/ APIs</em></div>
         <div class="skill-tags">
-          <span>VB.NET</span><span>Java</span><span>Python</span><span>REST APIs</span><span>Postman</span><span>Visual Studio</span>
+          <span>VB.NET</span><span>Java</span><span>Python</span><span>REST APIs</span><span>API Development</span><span>Postman</span><span>Visual Studio</span>
         </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 88%"></div></div>
       </div>
 
       <div class="skill-block">
@@ -192,6 +274,7 @@
         <div class="skill-tags">
           <span>MS SQL Server</span><span>Stored Procedures</span><span>Triggers</span><span>Query Optimization</span><span>SSMS</span>
         </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
       </div>
 
       <div class="skill-block">
@@ -203,6 +286,7 @@
         <div class="skill-tags">
           <span>Vercel</span><span>Railway DB</span><span>PlanetScale</span><span>Git</span><span>CI Workflows</span>
         </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div>
       </div>
 
       <div class="skill-block">
@@ -214,6 +298,7 @@
         <div class="skill-tags">
           <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Bootstrap</span><span>Responsive UI</span>
         </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
       </div>
 
       <div class="skill-block">
@@ -225,6 +310,31 @@
         <div class="skill-tags">
           <span>Google Maps API</span><span>Email Automation</span><span>ChatGPT</span><span>GitHub Copilot</span><span>Prompt-driven dev</span>
         </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT METRICS -->
+<section class="metrics-section">
+  <div class="container">
+    <div class="metrics-grid reveal">
+      <div class="metric">
+        <div class="metric-num" data-count="10" data-suffix="+">0</div>
+        <div class="metric-label">ERP modules in production</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num" data-count="2" data-suffix=" yrs">0</div>
+        <div class="metric-label">Shipping production code</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num" data-count="100" data-suffix="%">0</div>
+        <div class="metric-label">Workflows automated</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num" data-count="3" data-suffix="">0</div>
+        <div class="metric-label">Production projects live</div>
       </div>
     </div>
   </div>
@@ -406,12 +516,42 @@
   </div>
 </section>
 
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-num">05</div>
+        <div class="section-label">Education</div>
+      </div>
+      <h2 class="section-title">The academic <em>scaffolding.</em></h2>
+    </div>
+
+    <div class="edu-grid reveal">
+      <div class="edu-card glass">
+        <div class="edu-period">2023 — 2025</div>
+        <div class="edu-degree">Master of Computer Applications</div>
+        <div class="edu-school">IPS Academy</div>
+        <div class="edu-meta">Indore, Madhya Pradesh</div>
+        <div class="edu-note">Advanced software engineering & systems — running in parallel with production work at Indus Analytics.</div>
+      </div>
+      <div class="edu-card glass">
+        <div class="edu-period">2020 — 2023</div>
+        <div class="edu-degree">B.Sc. Computer Science</div>
+        <div class="edu-school">Barkatullah University</div>
+        <div class="edu-meta">Bhopal, Madhya Pradesh</div>
+        <div class="edu-note">Core CS — data structures, algorithms, OS, networks, DBMS. The foundation everything else is built on.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ACHIEVEMENTS -->
 <section>
   <div class="container">
     <div class="section-header reveal">
       <div>
-        <div class="section-num">05</div>
+        <div class="section-num">06</div>
         <div class="section-label">Receipts</div>
       </div>
       <h2 class="section-title">Wins worth <em>writing down.</em></h2>
@@ -466,36 +606,76 @@
 <!-- CONTACT -->
 <section id="contact" class="contact-section">
   <div class="container">
-    <div class="contact-label">06 / The Open Door</div>
+    <div class="contact-label">07 / The Open Door</div>
     <h2 class="contact-headline">
       Have a system <em>that needs building?</em><br>
       <a href="mailto:rajputana1208@gmail.com">Let's talk →</a>
     </h2>
 
-    <div class="contact-grid">
-      <div class="contact-item">
-        <div class="contact-key">// Email</div>
-        <a class="contact-val" href="mailto:rajputana1208@gmail.com">rajputana1208<br>@gmail.com</a>
-      </div>
-      <div class="contact-item">
-        <div class="contact-key">// Phone</div>
-        <a class="contact-val" href="tel:+917987818873">+91 79878 18873</a>
-      </div>
-      <div class="contact-item">
-        <div class="contact-key">// Location</div>
-        <div class="contact-val">Indore, MP<br>Open to relocate</div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-key">// LinkedIn</div>
-        <a class="contact-val" href="https://linkedin.com/in/prathvisinghrajput" target="_blank" rel="noopener">/prathvisinghrajput</a>
-      </div>
-      <div class="contact-item">
-        <div class="contact-key">// GitHub</div>
-        <a class="contact-val" href="https://github.com/Prathviie" target="_blank" rel="noopener">/Prathviie</a>
-      </div>
-      <div class="contact-item">
-        <div class="contact-key">// Status</div>
-        <div class="contact-val accent-text">● Open to opportunities</div>
+    <div class="contact-layout">
+      <!-- CONTACT FORM -->
+      <form class="contact-form glass reveal" id="contactForm" action="https://formsubmit.co/rajputana1208@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New message from portfolio">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://github.com/waffbeen/Portfolio">
+
+        <div class="form-title">// Send a message</div>
+
+        <div class="form-row">
+          <label class="form-field">
+            <span class="form-label">Your name</span>
+            <input type="text" name="name" required placeholder="Jane Smith" autocomplete="name" />
+          </label>
+          <label class="form-field">
+            <span class="form-label">Email</span>
+            <input type="email" name="email" required placeholder="you@company.com" autocomplete="email" />
+          </label>
+        </div>
+
+        <label class="form-field">
+          <span class="form-label">Subject</span>
+          <input type="text" name="subject" placeholder="Project, hire, hello…" />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Message</span>
+          <textarea name="message" rows="5" required placeholder="Tell me what you're building or hiring for."></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary form-submit magnetic">
+          <span>Send message</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <div class="form-note">First-time use of the form sends an activation email to me — after that, all messages flow through.</div>
+      </form>
+
+      <!-- CONTACT GRID -->
+      <div class="contact-grid reveal">
+        <div class="contact-item">
+          <div class="contact-key">// Email</div>
+          <a class="contact-val" href="mailto:rajputana1208@gmail.com">rajputana1208<br>@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-key">// Phone</div>
+          <a class="contact-val" href="tel:+917987818873">+91 79878 18873</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-key">// Location</div>
+          <div class="contact-val">Indore, MP<br>Open to relocate</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-key">// LinkedIn</div>
+          <a class="contact-val" href="https://linkedin.com/in/prathvisinghrajput" target="_blank" rel="noopener">/prathvisinghrajput</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-key">// GitHub</div>
+          <a class="contact-val" href="https://github.com/Prathviie" target="_blank" rel="noopener">/Prathviie</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-key">// Resume</div>
+          <a class="contact-val accent-text" href="/resume.pdf" download="Prathvi_Singh_Rajput_Resume.pdf">Download PDF ↓</a>
+        </div>
       </div>
     </div>
   </div>
@@ -506,7 +686,7 @@
     <div class="footer-grid">
       <div>© 2026 — PRATHVI SINGH RAJPUT</div>
       <div>BUILT WITH INTENT, NOT TEMPLATES.</div>
-      <div>v2.6 · LAST DEPLOY 04.27.26</div>
+      <div>v3.0 · LAST DEPLOY <span id="deployDate">04.27.26</span></div>
     </div>
   </div>
 </footer>
