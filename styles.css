@@ -1836,6 +1836,192 @@ footer {
 }
 
 /* ====================================
+   AVATAR (About section)
+   ==================================== */
+.avatar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.avatar-svg {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+
+.avatar-ring {
+  transform-origin: center;
+  animation: avatar-rotate 30s linear infinite;
+}
+
+@keyframes avatar-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.avatar-meta { display: flex; flex-direction: column; gap: 4px; }
+
+.avatar-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.avatar-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .avatar-svg { width: 90px; height: 90px; }
+  .avatar-name { font-size: 18px; }
+}
+
+/* ====================================
+   SKILL ICONS + BLURB
+   ==================================== */
+.skill-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--accent);
+  transition: transform 0.4s var(--ease-out-quint);
+}
+
+.skill-block:hover .skill-icon {
+  transform: rotate(8deg) scale(1.15);
+}
+
+.skill-blurb {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+  margin-top: -12px;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.skill-block .skill-arrow {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+}
+
+/* ====================================
+   PROJECT VISUALS (SVG mockups)
+   ==================================== */
+.project-visual {
+  margin: 32px 0 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  transition: transform 0.5s var(--ease-out-quint), border-color 0.5s, box-shadow 0.5s;
+}
+
+.project-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-tint) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.project-meta:hover .project-visual {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 30px 80px var(--accent-glow);
+}
+
+.project-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Pulsing dot in SVG */
+.svg-pulse {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: svg-pulse-anim 1.6s ease-in-out infinite;
+}
+
+@keyframes svg-pulse-anim {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.6); }
+}
+
+@media (max-width: 768px) {
+  .project-visual { margin: 24px 0 20px; }
+}
+
+/* ====================================
+   BACK TO TOP
+   ==================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.4s, transform 0.4s var(--ease-out-quint), border-color 0.3s, color 0.3s;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.back-to-top svg {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.btt-progress {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) calc(var(--p, 0) * 1%), transparent 0);
+  -webkit-mask: radial-gradient(circle, transparent 56%, black 58%);
+  mask: radial-gradient(circle, transparent 56%, black 58%);
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .back-to-top { bottom: 16px; left: 16px; width: 42px; height: 42px; }
+}
+
+/* ====================================
    3D CARD TILT (vanilla)
    ==================================== */
 .tilt {

@@ -1,11 +1,38 @@
 /* ===========================================
-   PRATHVI.SYS / v3.0 — interactive layer
+   PRATHVI.SYS / v3.1 — interactive layer
    =========================================== */
 
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- CONSOLE WELCOME ---------------- */
+(function () {
+  const styles = {
+    big: 'font: 700 24px/1.2 "Fraunces", serif; color: #c8ff00; padding: 8px 0;',
+    sub: 'font: 500 12px/1.6 "JetBrains Mono", monospace; color: #8a857c;',
+    tag: 'font: 600 11px/1 "JetBrains Mono", monospace; color: #0a0a0a; background: #c8ff00; padding: 4px 8px; border-radius: 4px;',
+    link: 'font: 500 12px/1.6 "JetBrains Mono", monospace; color: #c8ff00; text-decoration: underline;',
+    muted: 'font: 400 11px/1.6 "JetBrains Mono", monospace; color: #5a564f;'
+  };
+  const banner = `
+   ____           _   _          _   ___ ___
+  |  _ \\ _ __ __ _| |_| |____   _(_) / __/ __| _   _ ___
+  | |_) | '__/ _\` | __| '_ \\ \\ / / |.\\__ \\__ \\| | | / __|
+  |  __/| | | (_| | |_| | | \\ V /| |.___) |__) | |_| \\__ \\
+  |_|   |_|  \\__,_|\\__|_| |_|\\_/ |_||____/____(_)__, |___/
+                                                |___/
+  `;
+  console.log('%c' + banner, 'font: 400 12px/1.2 "JetBrains Mono", monospace; color: #c8ff00;');
+  console.log('%cPRATHVI SINGH RAJPUT', styles.big);
+  console.log('%cSoftware Developer · Indore, MP · Available for full-time roles', styles.sub);
+  console.log('%c v3.1 ', styles.tag, '  Static site · Vercel · Hand-coded · No frameworks');
+  console.log('%c→ Inspecting the source? Cool. Take what you like.', styles.muted);
+  console.log('%c→ Hire / contact: rajputana1208@gmail.com', styles.link);
+  console.log('%c→ Press T to toggle theme · / to open chatbot · ↑↑↓↓←→←→BA for a surprise', styles.muted);
+  console.log(' ');
+})();
 
 /* ---------------- LOADER ---------------- */
 window.addEventListener('load', () => {
@@ -101,17 +128,25 @@ $$('.magnetic').forEach((el) => {
   });
 });
 
-/* ---------------- SCROLL PROGRESS ---------------- */
+/* ---------------- SCROLL PROGRESS + BACK-TO-TOP ---------------- */
 const scrollProgress = $('#scrollProgress');
+const backToTop = $('#backToTop');
+const bttProgress = $('#bttProgress');
+
 function updateScrollProgress() {
-  if (!scrollProgress) return;
   const scrolled = window.scrollY;
   const max = document.documentElement.scrollHeight - window.innerHeight;
   const pct = max > 0 ? (scrolled / max) * 100 : 0;
-  scrollProgress.style.width = pct + '%';
+  if (scrollProgress) scrollProgress.style.width = pct + '%';
+  if (bttProgress) bttProgress.style.setProperty('--p', pct);
+  if (backToTop) backToTop.classList.toggle('visible', scrolled > 600);
 }
 window.addEventListener('scroll', updateScrollProgress, { passive: true });
 updateScrollProgress();
+
+backToTop?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 /* ---------------- SCROLL REVEAL ---------------- */
 const revealIO = new IntersectionObserver(
