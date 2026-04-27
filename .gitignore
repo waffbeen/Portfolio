@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+.next/
+out/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vercel
+.vercel
+
+# Claude Code local state
+.claude/
+
+# Reference assets (not deployed — personal/inspiration files)
+*.mp4
+portfolio content 1.jpg
+7f3a61befbf2624523edc08909539f39.jpg
+c894418cb1b5405f334a8962edc75490.jpg
