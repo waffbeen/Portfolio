@@ -33,11 +33,12 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 30000);
 
-/* ---------------- THEME TOGGLE ---------------- */
+/* ---------------- THEME TOGGLE ----------------
+   Initial theme is set by inline <script> in <head> (auto by IST time
+   if no saved preference). Here we only handle manual toggle clicks.
+*/
 const themeToggle = $('#themeToggle');
 const root = document.documentElement;
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) root.setAttribute('data-theme', savedTheme);
 
 themeToggle?.addEventListener('click', () => {
   const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';

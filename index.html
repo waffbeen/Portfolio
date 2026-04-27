@@ -19,6 +19,26 @@
 
 <title>Prathvi Singh Rajput — Software Developer</title>
 
+<script>
+  // Auto-theme: IST time-based (6am-6pm = light, 6pm-6am = dark)
+  // User's manual toggle (saved to localStorage) overrides this.
+  // Inline + early to avoid theme flash.
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var theme = saved;
+      if (!theme) {
+        var istNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+        var h = istNow.getHours();
+        theme = (h >= 6 && h < 18) ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23c8ff00'/%3E%3C/svg%3E" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
