@@ -706,10 +706,57 @@
     <div class="footer-grid">
       <div>© 2026 — PRATHVI SINGH RAJPUT</div>
       <div>BUILT WITH INTENT, NOT TEMPLATES.</div>
-      <div>v3.0 · LAST DEPLOY <span id="deployDate">04.27.26</span></div>
+      <div>v3.1 · LAST DEPLOY <span id="deployDate">04.27.26</span></div>
     </div>
   </div>
 </footer>
+
+<!-- ============================== -->
+<!-- PRATHVI.BOT — chatbot assistant -->
+<!-- ============================== -->
+<div class="chatbot" id="chatbot">
+  <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open Prathvi.bot">
+    <span class="chatbot-bot-mark">P</span>
+    <span class="chatbot-toggle-pulse"></span>
+    <span class="chatbot-toggle-tooltip">Ask me anything ↗</span>
+  </button>
+
+  <div class="chatbot-panel glass" id="chatbotPanel" role="dialog" aria-label="Prathvi.bot chat">
+    <header class="chatbot-header">
+      <div class="chatbot-avatar">
+        <span class="chatbot-avatar-mark">P</span>
+        <span class="chatbot-avatar-status"></span>
+      </div>
+      <div class="chatbot-info">
+        <div class="chatbot-name">Prathvi.bot</div>
+        <div class="chatbot-substatus">
+          <span class="chatbot-online-dot"></span>
+          Trained on Prathvi · always online
+        </div>
+      </div>
+      <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </header>
+
+    <div class="chatbot-messages" id="chatbotMessages" aria-live="polite"></div>
+
+    <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+
+    <form class="chatbot-input-form" id="chatbotForm" autocomplete="off">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask about Prathvi…" maxlength="200" />
+      <button type="submit" class="chatbot-send" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- KONAMI PARTY OVERLAY -->
+<div class="party-mode" id="partyMode" aria-hidden="true">
+  <div class="party-confetti"></div>
+  <div class="party-banner">UNLOCKED · PARTY MODE</div>
+</div>
 
 <script src="/script.js" defer></script>
 
