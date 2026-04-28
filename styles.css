@@ -1947,6 +1947,108 @@ footer {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 600px;
+}
+
+/* Animated flow lines — moving dashes */
+.flow-anim {
+  stroke-dasharray: 6 4;
+  animation: flow-march 1.6s linear infinite;
+}
+
+@keyframes flow-march {
+  to { stroke-dashoffset: -20; }
+}
+
+/* Click-to-expand cue on project visuals */
+.project-visual {
+  cursor: zoom-in;
+}
+
+.project-visual::after {
+  content: 'CLICK TO EXPAND ↗';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--ink-dim);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 4px 8px;
+  border-radius: 99px;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-quint);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.project-visual:hover::after { opacity: 0.8; }
+
+/* SVG node hover effect */
+.node-info {
+  cursor: help;
+  transition: opacity 0.2s, transform 0.2s var(--ease-out-quint);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.node-info:hover {
+  opacity: 0.85;
+  filter: brightness(1.15);
+}
+
+/* ====================================
+   PROJECT SCREENSHOT (optional)
+   Add <img class="project-screenshot" src="..."/> inside .project-meta
+   to swap from SVG diagram to real screenshot.
+   ==================================== */
+.project-screenshot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  margin: 24px 0;
+  filter: contrast(1.05);
+  transition: transform 0.5s var(--ease-out-quint), border-color 0.5s, box-shadow 0.5s;
+}
+
+.project-screenshot:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 30px 80px var(--accent-glow);
+}
+
+/* Toggle: Diagram vs Screenshot */
+.visual-toggle {
+  display: inline-flex;
+  gap: 0;
+  margin-top: 12px;
+  padding: 4px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+
+.visual-toggle button {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  color: var(--ink-dim);
+  cursor: none;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s var(--ease-out-quint);
+}
+
+.visual-toggle button.active {
+  background: var(--accent);
+  color: var(--bg);
 }
 
 /* Pulsing dot in SVG */
@@ -1961,8 +2063,29 @@ footer {
   50% { opacity: 0.4; transform: scale(1.6); }
 }
 
+/* Project meta wrapper — give the visual breathing room when sticky */
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Make the project-meta sticky top a bit more flexible */
+@media (min-width: 1024px) {
+  .project-meta {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+  }
+  .project-meta::-webkit-scrollbar { width: 4px; }
+  .project-meta::-webkit-scrollbar-track { background: transparent; }
+  .project-meta::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+}
+
 @media (max-width: 768px) {
   .project-visual { margin: 24px 0 20px; }
+  .project-svg { max-height: none; }
 }
 
 /* ====================================
@@ -2504,3 +2627,200 @@ body.party .hero-title {
   25% { transform: rotate(0.5deg); }
   75% { transform: rotate(-0.5deg); }
 }
+
+/* ====================================
+   NODE HOVER TOOLTIP
+   ==================================== */
+.node-tooltip {
+  position: fixed;
+  z-index: 9996;
+  background: var(--bg-elev);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 14px;
+  max-width: 260px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent-tint);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s var(--ease-out-quint);
+  white-space: pre-line;
+  letter-spacing: 0.02em;
+}
+
+.node-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.node-tooltip strong,
+.node-tooltip .tip-title {
+  display: block;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 768px) {
+  .node-tooltip { display: none; }
+}
+
+/* ====================================
+   VISUAL EXPAND MODAL
+   ==================================== */
+.visual-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9995;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px 60px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--ease-out-quint), visibility 0.4s;
+}
+
+[data-theme="light"] .visual-modal {
+  background: rgba(245, 243, 238, 0.95);
+}
+
+.visual-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.visual-modal-meta {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  right: 80px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.4s 0.1s, transform 0.4s 0.1s var(--ease-out-quint);
+  pointer-events: none;
+}
+
+.visual-modal.open .visual-modal-meta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.visual-modal-meta .meta-title {
+  display: block;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.visual-modal-meta .meta-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-dim);
+  letter-spacing: 0.05em;
+}
+
+.visual-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s var(--ease-out-quint);
+  z-index: 2;
+}
+
+.visual-modal-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(90deg);
+}
+
+.visual-modal-close svg { width: 18px; height: 18px; }
+
+.visual-modal-content {
+  width: min(900px, 100%);
+  max-height: calc(100vh - 180px);
+  overflow: auto;
+  padding: 24px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  transform: scale(0.92);
+  transition: transform 0.5s var(--ease-out-quint);
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.visual-modal-content::-webkit-scrollbar { width: 6px; height: 6px; }
+.visual-modal-content::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+.visual-modal-content::-webkit-scrollbar-track { background: transparent; }
+
+.visual-modal.open .visual-modal-content { transform: scale(1); }
+
+.visual-modal-content svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: default;
+}
+
+.visual-modal-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 99px;
+  opacity: 0;
+  transition: opacity 0.4s 0.3s;
+}
+
+.visual-modal.open .visual-modal-hint { opacity: 1; }
+
+@media (max-width: 768px) {
+  .visual-modal { padding: 70px 16px 50px; }
+  .visual-modal-meta { left: 16px; right: 70px; top: 18px; }
+  .visual-modal-meta .meta-title { font-size: 16px; }
+  .visual-modal-content { padding: 16px; max-height: calc(100vh - 140px); }
+  .visual-modal-hint { font-size: 9px; padding: 6px 12px; bottom: 12px; }
+}
+
+/* When modal open, hide cursor inside */
+body.modal-open { overflow: hidden; }

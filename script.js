@@ -296,8 +296,116 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     openChatbot();
   }
-  // Close chatbot: Escape
-  if (e.key === 'Escape') closeChatbot();
+  // Close chatbot or modal: Escape
+  if (e.key === 'Escape') {
+    closeChatbot();
+    closeVisualModal();
+  }
+});
+
+/* ====================================================
+   SVG NODE TOOLTIPS (hover on .node-info elements)
+   ==================================================== */
+const nodeTooltip = $('#nodeTooltip');
+
+function showNodeTooltip(text, e) {
+  if (!nodeTooltip || !text) return;
+  // Split first newline as title
+  const idx = text.indexOf('\n');
+  let title = '';
+  let body = text;
+  if (idx > -1) {
+    title = text.slice(0, idx);
+    body = text.slice(idx + 1);
+  }
+  nodeTooltip.innerHTML = (title ? `<span class="tip-title">${title}</span>` : '') + body;
+  nodeTooltip.classList.add('visible');
+  positionNodeTooltip(e);
+}
+
+function hideNodeTooltip() {
+  if (nodeTooltip) nodeTooltip.classList.remove('visible');
+}
+
+function positionNodeTooltip(e) {
+  if (!nodeTooltip) return;
+  const pad = 16;
+  const w = nodeTooltip.offsetWidth;
+  const h = nodeTooltip.offsetHeight;
+  let x = e.clientX + pad;
+  let y = e.clientY + pad;
+  if (x + w + pad > window.innerWidth) x = e.clientX - w - pad;
+  if (y + h + pad > window.innerHeight) y = e.clientY - h - pad;
+  nodeTooltip.style.left = x + 'px';
+  nodeTooltip.style.top = y + 'px';
+}
+
+document.addEventListener('mouseover', (e) => {
+  const node = e.target.closest('.node-info');
+  if (node && node.dataset.tip) {
+    showNodeTooltip(node.dataset.tip, e);
+  }
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (nodeTooltip?.classList.contains('visible')) {
+    positionNodeTooltip(e);
+  }
+});
+
+document.addEventListener('mouseout', (e) => {
+  const node = e.target.closest('.node-info');
+  if (node) hideNodeTooltip();
+});
+
+/* ====================================================
+   VISUAL EXPAND MODAL — click .project-visual to expand
+   ==================================================== */
+const visualModal = $('#visualModal');
+const visualModalContent = $('#visualModalContent');
+const visualModalMeta = $('#visualModalMeta');
+const visualModalClose = $('#visualModalClose');
+
+function openVisualModal(visualEl) {
+  if (!visualModal || !visualEl) return;
+  const svg = visualEl.querySelector('svg');
+  if (!svg) return;
+
+  const title = visualEl.dataset.modalTitle || '';
+  const sub = visualEl.dataset.modalSub || '';
+
+  visualModalMeta.innerHTML =
+    (title ? `<span class="meta-title">${title}</span>` : '') +
+    (sub ? `<span class="meta-sub">${sub}</span>` : '');
+
+  visualModalContent.innerHTML = '';
+  const clone = svg.cloneNode(true);
+  visualModalContent.appendChild(clone);
+
+  visualModal.classList.add('open');
+  visualModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  hideNodeTooltip();
+}
+
+function closeVisualModal() {
+  if (!visualModal) return;
+  visualModal.classList.remove('open');
+  visualModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
+
+$$('.project-visual').forEach((visual) => {
+  visual.addEventListener('click', (e) => {
+    // Don't open modal if clicking on a tooltip-bearing node directly (let tooltip show)
+    // Only open on visual area click — treat all clicks as expand
+    openVisualModal(visual);
+  });
+});
+
+visualModalClose?.addEventListener('click', closeVisualModal);
+visualModal?.addEventListener('click', (e) => {
+  if (e.target === visualModal) closeVisualModal();
 });
 
 /* ====================================================
