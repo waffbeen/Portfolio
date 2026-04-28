@@ -2824,3 +2824,314 @@ body.party .hero-title {
 
 /* When modal open, hide cursor inside */
 body.modal-open { overflow: hidden; }
+
+/* ====================================
+   ENHANCED VISUAL MODAL v2
+   Two-panel layout: SVG left · Details right
+   All rules override the v1 rules above via cascade order.
+   ==================================== */
+
+/* Override old padding — inner div handles layout now */
+.visual-modal { padding: 0; }
+
+/* Glassmorphic two-panel container */
+.visual-modal-inner {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  width: min(1100px, calc(100vw - 80px));
+  max-height: calc(100vh - 80px);
+  background: rgba(14, 14, 14, 0.72);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(200, 255, 0, 0.07);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(200, 255, 0, 0.03);
+  /* Animate in with scale + translateY */
+  transform: scale(0.91) translateY(28px);
+  opacity: 0;
+  transition:
+    transform 0.55s var(--ease-out-quint),
+    opacity   0.45s var(--ease-out-quint);
+}
+
+.visual-modal.open .visual-modal-inner {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+[data-theme="light"] .visual-modal-inner {
+  background: rgba(245, 243, 238, 0.82);
+  border-color: rgba(77, 130, 0, 0.12);
+}
+
+/* === LEFT PANEL: SVG diagram === */
+.vm-left {
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.42);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: auto;
+  max-height: calc(100vh - 80px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+[data-theme="light"] .vm-left {
+  background: rgba(235, 232, 224, 0.5);
+  border-right-color: rgba(0, 0, 0, 0.06);
+}
+
+.vm-left svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 160px);
+}
+
+/* === RIGHT PANEL: project details === */
+.vm-right {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.vm-right::-webkit-scrollbar { width: 4px; }
+.vm-right::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 2px; }
+.vm-right::-webkit-scrollbar-track { background: transparent; }
+
+/* Staggered slide-in for every direct child of right panel */
+.vm-right > * {
+  opacity: 0;
+  transform: translateX(20px);
+  transition:
+    opacity   0.45s var(--ease-out-quint),
+    transform 0.45s var(--ease-out-quint);
+}
+
+.visual-modal.open .vm-right > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.12s; }
+.visual-modal.open .vm-right > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.19s; }
+.visual-modal.open .vm-right > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.26s; }
+.visual-modal.open .vm-right > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.33s; }
+.visual-modal.open .vm-right > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.40s; }
+.visual-modal.open .vm-right > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.47s; }
+.visual-modal.open .vm-right > *:nth-child(7) { opacity: 1; transform: none; transition-delay: 0.54s; }
+
+/* Tag: mono label above the title */
+.vm-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vm-tag::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Project title */
+.vm-title {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+/* Hairline divider */
+.vm-divider {
+  height: 1px;
+  background: var(--line);
+  margin-bottom: 20px;
+}
+
+/* Description paragraph */
+.vm-desc {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+/* Section micro-labels */
+.vm-tech-label,
+.vm-features-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 10px;
+}
+
+/* Tech stack badge row */
+.vm-tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.vm-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 11px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+  background: var(--accent-tint);
+  transition: background 0.25s var(--ease-out-quint), color 0.25s;
+  cursor: default;
+}
+
+.vm-badge:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Feature bullet list */
+.vm-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.vm-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-dim);
+  line-height: 1.45;
+}
+
+.vm-features li::before {
+  content: '◆';
+  color: var(--accent);
+  font-size: 7px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* Action buttons row */
+.vm-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.vm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  border-radius: 99px;
+  text-decoration: none;
+  border: 1px solid;
+  cursor: none;
+  transition: all 0.3s var(--ease-out-quint);
+}
+
+.vm-btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.vm-btn-primary:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.vm-btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.vm-btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Status pill for production/private projects */
+.vm-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-dim);
+  cursor: default;
+}
+
+.vm-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  animation: svg-pulse-anim 1.6s ease-in-out infinite;
+}
+
+/* === RESPONSIVE: stack panels vertically on small screens === */
+@media (max-width: 860px) {
+  .visual-modal-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    width: calc(100vw - 32px);
+    max-height: calc(100vh - 40px);
+    border-radius: 16px;
+  }
+
+  .vm-left {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 20px;
+    max-height: 44vh;
+  }
+
+  .vm-right {
+    padding: 24px 20px;
+    max-height: 56vh;
+  }
+
+  .vm-title { font-size: 24px; }
+  .vm-desc  { font-size: 14px; }
+}

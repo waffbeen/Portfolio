@@ -452,7 +452,13 @@
         <div class="project-tagline">// Live in production</div>
 
         <!-- VISUAL: Full 11-stage procurement lifecycle -->
-        <div class="project-visual" data-modal-title="Procurement Lifecycle · Thomson ERP" data-modal-sub="Full 11-stage flow with manager approval and 3-way QC branching">
+        <div class="project-visual"
+          data-modal-title="Thomson ERP / Procurement Suite"
+          data-modal-sub="Live in Production · Indus Analytics"
+          data-modal-desc="Built the complete PR → PO → GRN lifecycle as a single integrated module inside Thomson ERP — supplier rating, CAPEX tracking, and 3-way QC branching all flowing through one source of truth, with optimised stored procedures handling the heavy reads."
+          data-modal-tech="VB.NET,SQL Server,Stored Procedures,Triggers,SSMS"
+          data-modal-features="11-stage PR → PO → GRN lifecycle|Manager approval via auto-email chain|3-way QC branching: Pass / Partial / Fail|Inventory atomic update via SQL triggers|Real-time MIS dashboards & vendor scorecards"
+          data-modal-status="Live in Production">
           <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg" class="project-svg">
             <!-- Window frame -->
             <rect x="8" y="8" width="384" height="444" rx="10" fill="var(--bg)" stroke="var(--line)" stroke-width="1"/>
@@ -659,7 +665,13 @@
         <div class="project-tagline">// Real-time logistics</div>
 
         <!-- VISUAL: Parcel tracking — map + state timeline + email log -->
-        <div class="project-visual" data-modal-title="Parcel Tracker · Real-time Logistics" data-modal-sub="Live map, state timeline, and auto-email log — every state change triggers customer notification">
+        <div class="project-visual"
+          data-modal-title="AI-Based Parcel Delivery"
+          data-modal-sub="Real-time Logistics · Cloud"
+          data-modal-desc="Real-time parcel tracking on Google Maps API with automated email pipelines that fire on every state change — customers see their parcel move, ops never types another status update."
+          data-modal-tech="Python,Google Maps API,SMTP,Cloud Deploy"
+          data-modal-features="Live GPS route visualization on Google Maps|5-stage delivery timeline with real-time updates|Auto-email trigger on every state change|OTP-based last-mile delivery confirmation|AWB-linked parcel management system"
+          data-modal-status="Deployed · Cloud">
           <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg" class="project-svg">
             <!-- Window frame -->
             <rect x="8" y="8" width="384" height="444" rx="10" fill="var(--bg)" stroke="var(--line)" stroke-width="1"/>
@@ -853,7 +865,13 @@
         <div class="project-tagline">// Asset lifecycle</div>
 
         <!-- VISUAL: CAPEX/AMC Lifecycle — flow + countdown calendar strip -->
-        <div class="project-visual" data-modal-title="CAPEX & AMC Tracker · Asset Lifecycle" data-modal-sub="Capital expense → asset register → AMC contract → renewal alerts → service log → reports">
+        <div class="project-visual"
+          data-modal-title="CAPEX & AMC Tracking Module"
+          data-modal-sub="Asset Lifecycle · Finance Automation"
+          data-modal-desc="Capital expense tracking from multi-level approval chain through asset register, auto-depreciation (SLM/WDV), AMC contract management, and renewal alert emails at T-30/T-15/T-7 days before expiry."
+          data-modal-tech="VB.NET,SQL Server,SMTP,Crystal Reports"
+          data-modal-features="Multi-level CAPEX approval (Dept → Finance → CFO)|Auto depreciation via SLM / WDV method|AMC contract register with SLA tracking|T-30 / T-15 / T-7 renewal email alerts|Service log, audit trail & asset reports"
+          data-modal-status="Live in Production">
           <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg" class="project-svg">
             <!-- Window frame -->
             <rect x="8" y="8" width="384" height="444" rx="10" fill="var(--bg)" stroke="var(--line)" stroke-width="1"/>
@@ -1321,14 +1339,18 @@
   </div>
 </div>
 
-<!-- VISUAL EXPAND MODAL -->
+<!-- VISUAL EXPAND MODAL — two-panel: SVG diagram (left) + project details (right) -->
 <div class="visual-modal" id="visualModal" aria-hidden="true">
   <button class="visual-modal-close" id="visualModalClose" aria-label="Close">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
-  <div class="visual-modal-meta" id="visualModalMeta"></div>
-  <div class="visual-modal-content" id="visualModalContent"></div>
-  <div class="visual-modal-hint">click anywhere or press Esc to close · scroll to inspect</div>
+  <div class="visual-modal-inner">
+    <!-- Left panel: interactive SVG diagram -->
+    <div class="vm-left" id="visualModalContent"></div>
+    <!-- Right panel: project title, description, tech stack, features, status -->
+    <div class="vm-right" id="visualModalMeta"></div>
+  </div>
+  <div class="visual-modal-hint">click outside or press Esc to close</div>
 </div>
 
 <!-- TOOLTIP (single, repositioned for each hover) -->
