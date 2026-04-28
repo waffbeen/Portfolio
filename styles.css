@@ -2984,6 +2984,9 @@ body.modal-open { overflow: hidden; }
   margin-bottom: 10px;
 }
 
+/* Grouping wrapper — keeps label+content as one nth-child unit for the stagger selectors */
+.vm-section { display: block; }
+
 /* Tech stack badge row */
 .vm-tech-badges {
   display: flex;

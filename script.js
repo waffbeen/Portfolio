@@ -371,17 +371,51 @@ function openVisualModal(visualEl) {
   const svg = visualEl.querySelector('svg');
   if (!svg) return;
 
-  const title = visualEl.dataset.modalTitle || '';
-  const sub = visualEl.dataset.modalSub || '';
+  // Read all project data from data attributes
+  const title    = visualEl.dataset.modalTitle    || '';
+  const sub      = visualEl.dataset.modalSub      || '';
+  const desc     = visualEl.dataset.modalDesc     || '';
+  const techRaw  = visualEl.dataset.modalTech     || '';
+  const featsRaw = visualEl.dataset.modalFeatures || '';
+  const github   = visualEl.dataset.modalGithub   || '';
+  const demo     = visualEl.dataset.modalDemo     || '';
+  const status   = visualEl.dataset.modalStatus   || '';
 
-  visualModalMeta.innerHTML =
-    (title ? `<span class="meta-title">${title}</span>` : '') +
-    (sub ? `<span class="meta-sub">${sub}</span>` : '');
+  // Build tech badge HTML
+  const badges = techRaw.split(',').filter(Boolean)
+    .map(t => `<span class="vm-badge">${t.trim()}</span>`)
+    .join('');
 
+  // Build features list HTML
+  const featureItems = featsRaw.split('|').filter(Boolean)
+    .map(f => `<li>${f.trim()}</li>`)
+    .join('');
+
+  // Build action buttons / status pill
+  let actions = '';
+  if (demo)   actions += `<a href="${demo}" target="_blank" rel="noopener" class="vm-btn vm-btn-primary">Live Demo ↗</a>`;
+  if (github) actions += `<a href="${github}" target="_blank" rel="noopener" class="vm-btn vm-btn-secondary">GitHub ↗</a>`;
+  if (status) actions += `<span class="vm-status"><span class="vm-status-dot"></span>${status}</span>`;
+
+  // Populate right panel — each array item becomes ONE direct child of vm-right,
+  // which is what the CSS nth-child stagger selectors count against (max 7 children).
+  visualModalMeta.innerHTML = [
+    sub      ? `<div class="vm-tag">${sub}</div>`   : '',
+    title    ? `<div class="vm-title">${title}</div>` : '',
+               `<div class="vm-divider"></div>`,
+    desc     ? `<div class="vm-desc">${desc}</div>` : '',
+    // Wrap label + badges together so they count as one child
+    badges   ? `<div class="vm-section"><div class="vm-tech-label">Tech Stack</div><div class="vm-tech-badges">${badges}</div></div>` : '',
+    // Wrap label + list together so they count as one child
+    featureItems ? `<div class="vm-section"><div class="vm-features-label">Key Features</div><ul class="vm-features">${featureItems}</ul></div>` : '',
+    actions  ? `<div class="vm-actions">${actions}</div>` : '',
+  ].join('');
+
+  // Populate left panel with a cloned SVG (preserves CSS variables + animations)
   visualModalContent.innerHTML = '';
-  const clone = svg.cloneNode(true);
-  visualModalContent.appendChild(clone);
+  visualModalContent.appendChild(svg.cloneNode(true));
 
+  // Open
   visualModal.classList.add('open');
   visualModal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
